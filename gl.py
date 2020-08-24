@@ -52,13 +52,13 @@ class Render(object):
     def lookAt(self, eye, camPosition = V3(0,0,0)):
 
         forward = substract(camPosition, eye)
-        forward = forward / np.linalg.norm(forward)
+        forward = norm(forward)
 
         right = crossArrays(V3(0,1,0), forward)
-        right = right / np.linalg.norm(right)
+        right = norm(right)
 
         up = crossArrays(forward, right)
-        up = up / np.linalg.norm(up)
+        up = norm(up)
 
         camMatrix = matrix([[right[0], up[0], forward[0], camPosition.x],
                             [right[1], up[1], forward[1], camPosition.y],
