@@ -97,7 +97,7 @@ class Render(object):
     def glClear(self):
         self.pixels = [ [ self.clear_color for x in range(self.width)] for y in range(self.height) ]
 
-        #Z - buffer, depthbuffer, buffer de profudidad
+        #Z - buffer
         self.zbuffer = [ [ float('inf') for x in range(self.width)] for y in range(self.height) ]
 
     def glVertex(self, x, y, color = None):
@@ -245,7 +245,7 @@ class Render(object):
                 y += 1 if y0 < y1 else -1
                 limit += 1
 
-    def glLine_coord(self, v0, v1, color = None): # Window coordinates
+    def glLine_coord(self, v0, v1, color = None):
         x0 = v0.x
         x1 = v1.x
         y0 = v0.y
@@ -414,7 +414,6 @@ class Render(object):
     def triangle(self, A, B, C, color = None):
         
         def flatBottomTriangle(v1,v2,v3):
-            #self.drawPoly([v1,v2,v3], color)
             for y in range(v1.y, v3.y + 1):
                 xi = round( v1.x + (v3.x - v1.x)/(v3.y - v1.y) * (y - v1.y))
                 xf = round( v2.x + (v3.x - v2.x)/(v3.y - v2.y) * (y - v2.y))
@@ -451,7 +450,8 @@ class Render(object):
             flatBottomTriangle(A,B,C)
         elif B.y == C.y: #En caso de que la parte de arriba sea plana
             flatTopTriangle(A,B,C)
-        else: #En cualquier otro caso
+        else: 
+            #En cualquier otro caso
             # y - y1 = m * (x - x1)
             # B.y - A.y = (C.y - A.y)/(C.x - A.x) * (D.x - A.x)
             # Resolviendo para D.x
