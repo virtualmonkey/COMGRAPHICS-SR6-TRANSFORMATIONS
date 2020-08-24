@@ -1,13 +1,17 @@
 from gl import Render, color, V2, V3
 from obj import Obj, Texture
 
-import random
+from shaders import *
 
-r = Render(1000,1000)
+r = Render(768,432)
 
 r.active_texture = Texture('./models/model.bmp')
+r.active_shader = phong
 
-r.loadModel('./models/model.obj', V3(500,500,0), V3(300,300,300))
+posModel = V3( 0, 0, -5)
+
+r.lookAt(posModel, V3(2,2,0))
+
+r.loadModel('./models/model.obj', posModel, V3(1,1,1), V3(0,0,0))
 
 r.glFinish('output.bmp')
-#r.glZBuffer('zbuffer.bmp')
